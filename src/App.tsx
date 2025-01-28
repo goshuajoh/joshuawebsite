@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import '@fontsource/quicksand';
+import { ThemeProvider, useTheme } from './theme/ThemeContext';
+import Navbar from './components/layout/Navbar';
+import HeroSection from './components/sections/HeroSection';
+import AboutSection from './components/sections/AboutSection';
+import ProjectsSection from './components/sections/ProjectsSection';
+import HobbiesSection from './components/sections/HobbiesSection';
+import ContactSection from './components/sections/ContactSection';
+import AnimationPlayground from './components/sections/AnimationPlayground';
 
-function App() {
+const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { theme } = useTheme();
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={`min-h-screen transition-colors duration-200 ${
+      theme === 'dark' ? 'dark bg-gray-900' : 'bg-white'
+    }`}>
+      {children}
     </div>
   );
-}
+};
+
+const App = () => {
+  return (
+    <ThemeProvider>
+      <Layout>
+        <Navbar />
+        <HeroSection />
+        <AboutSection />
+        <ProjectsSection />
+        <HobbiesSection />
+        <ContactSection />
+        <AnimationPlayground />
+      </Layout>
+    </ThemeProvider>
+  );
+};
 
 export default App;
